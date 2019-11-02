@@ -11,3 +11,20 @@ struct ast_node* n_if(struct ast_node* cond, struct ast_node* then, struct ast_n
 
     return _if;
 }
+
+
+struct ast_node* n_while(struct ast_node* cond, struct ast_node* body)
+{
+    struct ast_node* _while = ast_new_node(N_WHILE);
+    ast_add_child(_while, cond);
+    ast_add_child(_while, body);
+
+    return _while;
+}
+
+struct ast_node* n_const_integer(int number)
+{
+    struct ast_node* node = ast_new_node(N_CONST_INTEGER);
+    node->data.integer = number;
+    return node;
+}

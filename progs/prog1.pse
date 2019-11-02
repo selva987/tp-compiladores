@@ -1,0 +1,5 @@
+a <= 20;
+b<=1;
+mientras(a menor b) {
+	b = b + 1;
+}

@@ -1,0 +1,7 @@
+b <= 1;
+
+a <= 35;
+
+mientras(b menor a) {
+	b <= (b + 1);
+}

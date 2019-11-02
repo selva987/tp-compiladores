@@ -31,6 +31,7 @@ union usr_ast_data {
     double number;
     int boolean;
     int operand;
+    int integer;
 };
 
 struct ast_node *ast;
