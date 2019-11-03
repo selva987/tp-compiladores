@@ -19,4 +19,8 @@ struct ast_node* n_const_integer(int number);
 
 struct ast_node* n_for(struct ast_node* var, struct ast_node* from, struct ast_node* to, struct ast_node* body);
 
+#define N_ECHO	6
+
+struct ast_node* n_echo(struct ast_node* arg);
+
 #endif /* FN_H */

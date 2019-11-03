@@ -42,7 +42,12 @@ void print_blocks(struct ast_node* node)
 
     while (NULL != (n = ast_get_nth_child(node, i++))) {
         print_node(n);
-        printf(";\n");
+        if(n->type != N_WHILE
+            && node->type != N_IF
+            && node->type != N_FOR) {
+            printf(";");
+        }
+        printf("\n");
     }
 }
 
@@ -89,7 +94,8 @@ void print_while(struct ast_node* node)
     printf("}\n");
 }
 
-void print_for(struct ast_node* node) {
+void print_for(struct ast_node* node) 
+{
     struct ast_node* n, *var;
 
     printf("for(");
@@ -125,6 +131,15 @@ void print_for(struct ast_node* node) {
     print_node(n);
 
     printf("}\n");
+}
+
+void print_echo(struct ast_node* node) 
+{
+    struct ast_node* n;
+    n = ast_get_nth_child(node, 0);
+
+    printf("echo ");
+    print_node(n);
 }
 
 void print_expr(struct ast_node* node)
@@ -220,7 +235,7 @@ void print_const_integer(struct ast_node* node)
 
 void print_const_string(struct ast_node* node)
 {
-    printf("\'%s", node->data.string);
+    printf("%s", node->data.string);
 }
 
 
@@ -242,6 +257,8 @@ void print_node(struct ast_node* node)
             break;
         case N_FOR:
             print_for(node);
+        case N_ECHO:
+            print_echo(node);
             break;
         case N_EXPR:
             print_expr(node);

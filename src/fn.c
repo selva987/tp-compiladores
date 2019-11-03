@@ -39,3 +39,10 @@ struct ast_node* n_for(struct ast_node* var, struct ast_node* from, struct ast_n
 
     return _for;
 }
+
+struct ast_node* n_echo(struct ast_node* arg) {
+	struct ast_node* _echo = ast_new_node(N_ECHO);
+    ast_add_child(_echo, arg);
+
+    return _echo;
+}

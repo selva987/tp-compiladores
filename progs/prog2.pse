@@ -1,5 +1,5 @@
 b <= 1;
-
+c <= 'chau';
 a <= 35;
 
 mientras(b menor a) {
@@ -9,3 +9,6 @@ mientras(b menor a) {
 para(i desde b hasta (a -1)) {
 	b <= 2;
 }
+
+mostrar(b);
+mostrar('hola');
