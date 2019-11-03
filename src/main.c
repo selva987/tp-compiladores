@@ -89,6 +89,44 @@ void print_while(struct ast_node* node)
     printf("}\n");
 }
 
+void print_for(struct ast_node* node) {
+    struct ast_node* n, *var;
+
+    printf("for(");
+
+    //variable
+    var =  ast_get_nth_child(node, 0);
+    print_node(var);
+
+    printf("=");
+
+    //condicion inicio
+    n =  ast_get_nth_child(node, 1);
+    print_node(n);
+
+    printf(";");
+
+    //condicion fin
+    print_node(var);
+    printf("<=");
+    n =  ast_get_nth_child(node, 2);
+    print_node(n);
+
+    printf(";");
+
+    //incremento (por ahora solo suma de 1 en 1)
+    print_node(var);
+    printf("++");
+
+    printf(") {\n");
+
+    //then
+    n =  ast_get_nth_child(node, 3);
+    print_node(n);
+
+    printf("}\n");
+}
+
 void print_expr(struct ast_node* node)
 {
     struct ast_node* n;
@@ -201,6 +239,9 @@ void print_node(struct ast_node* node)
             break;
         case N_WHILE:
             print_while(node);
+            break;
+        case N_FOR:
+            print_for(node);
             break;
         case N_EXPR:
             print_expr(node);

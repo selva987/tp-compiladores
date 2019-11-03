@@ -17,105 +17,113 @@ Gramática
 
     4 linea: if
     5      | while
-    6      | operation T_SEMICOLON
+    6      | for
+    7      | operation T_SEMICOLON
 
-    7 if: T_IF cond then else
+    8 if: T_IF cond then else
 
-    8 cond: T_PAR_I operation T_PAR_D
+    9 cond: T_PAR_I operation T_PAR_D
 
-    9 operation: operand operator operand
-   10          | T_ID
+   10 operation: operand operator operand
+   11          | T_ID
 
-   11 operand: T_ID
-   12        | T_STRING
-   13        | T_NUMBER
-   14        | T_INTEGER
-   15        | cond
+   12 operand: T_ID
+   13        | T_STRING
+   14        | T_NUMBER
+   15        | T_INTEGER
+   16        | cond
 
-   16 operator: T_OP_EQUAL
-   17         | T_OP_DISTINCT
-   18         | T_OP_LESSER
-   19         | T_OP_GREATER
-   20         | T_OP_LESSER_EQ
-   21         | T_OP_GREATER_EQ
-   22         | T_OP_AND
-   23         | T_OP_OR
-   24         | T_OP_ASSIGN
-   25         | T_AOP_PLUS
-   26         | T_AOP_MINUS
-   27         | T_AOP_MUL
-   28         | T_AOP_DIV
+   17 operator: T_OP_EQUAL
+   18         | T_OP_DISTINCT
+   19         | T_OP_LESSER
+   20         | T_OP_GREATER
+   21         | T_OP_LESSER_EQ
+   22         | T_OP_GREATER_EQ
+   23         | T_OP_AND
+   24         | T_OP_OR
+   25         | T_OP_ASSIGN
+   26         | T_AOP_PLUS
+   27         | T_AOP_MINUS
+   28         | T_AOP_MUL
+   29         | T_AOP_DIV
 
-   29 then: T_LLA_I lineas T_LLA_D
+   30 then: T_LLA_I lineas T_LLA_D
 
-   30 else: T_ELSE T_LLA_I lineas T_LLA_D
-   31     | %empty
+   31 else: T_ELSE T_LLA_I lineas T_LLA_D
+   32     | %empty
 
-   32 while: T_WHILE cond then
+   33 while: T_WHILE cond then
+
+   34 for: T_FOR T_PAR_I T_ID T_FROM operand T_TO operand T_PAR_D then
 
 
 Terminales con las reglas donde aparecen
 
 $end (0) 0
 error (256)
-T_ID (258) 10 11
-T_IF (259) 7
-T_WHILE (260) 32
-T_LLA_I (261) 29 30
-T_LLA_D (262) 29 30
-T_PAR_I (263) 8
-T_PAR_D (264) 8
-T_ELSE (265) 30
+T_ID (258) 11 12 34
+T_IF (259) 8
+T_WHILE (260) 33
+T_LLA_I (261) 30 31
+T_LLA_D (262) 30 31
+T_PAR_I (263) 9 34
+T_PAR_D (264) 9 34
+T_ELSE (265) 31
 T_TYPE_NUMBER (266)
 T_TYPE_STRING (267)
 T_COMMA (268)
-T_OP_ASSIGN (269) 24
-T_OP_EQUAL (270) 16
-T_OP_DISTINCT (271) 17
-T_OP_LESSER (272) 18
-T_OP_GREATER (273) 19
-T_OP_LESSER_EQ (274) 20
-T_OP_GREATER_EQ (275) 21
-T_OP_AND (276) 22
-T_OP_OR (277) 23
-T_AOP_PLUS (278) 25
-T_AOP_MINUS (279) 26
-T_AOP_MUL (280) 27
-T_AOP_DIV (281) 28
+T_OP_ASSIGN (269) 25
+T_OP_EQUAL (270) 17
+T_OP_DISTINCT (271) 18
+T_OP_LESSER (272) 19
+T_OP_GREATER (273) 20
+T_OP_LESSER_EQ (274) 21
+T_OP_GREATER_EQ (275) 22
+T_OP_AND (276) 23
+T_OP_OR (277) 24
+T_AOP_PLUS (278) 26
+T_AOP_MINUS (279) 27
+T_AOP_MUL (280) 28
+T_AOP_DIV (281) 29
 T_AOP_POW (282)
-T_NUMBER (283) 13
-T_STRING (284) 12
-T_INTEGER (285) 14
-T_SEMICOLON (286) 6
+T_NUMBER (283) 14
+T_STRING (284) 13
+T_INTEGER (285) 15
+T_SEMICOLON (286) 7
+T_FOR (287) 34
+T_FROM (288) 34
+T_TO (289) 34
 
 
 No terminales con las reglas donde aparecen
 
-$accept (32)
+$accept (35)
     en la izquierda: 0
-sigma (33)
+sigma (36)
     en la izquierda: 1, en la derecha: 0
-lineas (34)
-    en la izquierda: 2 3, en la derecha: 1 2 29 30
-linea (35)
-    en la izquierda: 4 5 6, en la derecha: 2
-if (36)
-    en la izquierda: 7, en la derecha: 4
-cond (37)
-    en la izquierda: 8, en la derecha: 7 15 32
-operation (38)
-    en la izquierda: 9 10, en la derecha: 6 8
-operand (39)
-    en la izquierda: 11 12 13 14 15, en la derecha: 9
-operator (40)
-    en la izquierda: 16 17 18 19 20 21 22 23 24 25 26 27 28, en la derecha:
-    9
-then (41)
-    en la izquierda: 29, en la derecha: 7 32
-else (42)
-    en la izquierda: 30 31, en la derecha: 7
-while (43)
-    en la izquierda: 32, en la derecha: 5
+lineas (37)
+    en la izquierda: 2 3, en la derecha: 1 2 30 31
+linea (38)
+    en la izquierda: 4 5 6 7, en la derecha: 2
+if (39)
+    en la izquierda: 8, en la derecha: 4
+cond (40)
+    en la izquierda: 9, en la derecha: 8 16 33
+operation (41)
+    en la izquierda: 10 11, en la derecha: 7 9
+operand (42)
+    en la izquierda: 12 13 14 15 16, en la derecha: 10 34
+operator (43)
+    en la izquierda: 17 18 19 20 21 22 23 24 25 26 27 28 29, en la derecha:
+    10
+then (44)
+    en la izquierda: 30, en la derecha: 8 33 34
+else (45)
+    en la izquierda: 31 32, en la derecha: 8
+while (46)
+    en la izquierda: 33, en la derecha: 5
+for (47)
+    en la izquierda: 34, en la derecha: 6
 
 
 Estado 0
@@ -129,50 +137,52 @@ Estado 0
     T_NUMBER   desplazar e ir al estado 5
     T_STRING   desplazar e ir al estado 6
     T_INTEGER  desplazar e ir al estado 7
+    T_FOR      desplazar e ir al estado 8
 
     $default  reduce usando la regla 3 (lineas)
 
-    sigma      ir al estado 8
-    lineas     ir al estado 9
-    linea      ir al estado 10
-    if         ir al estado 11
-    cond       ir al estado 12
-    operation  ir al estado 13
-    operand    ir al estado 14
-    while      ir al estado 15
+    sigma      ir al estado 9
+    lineas     ir al estado 10
+    linea      ir al estado 11
+    if         ir al estado 12
+    cond       ir al estado 13
+    operation  ir al estado 14
+    operand    ir al estado 15
+    while      ir al estado 16
+    for        ir al estado 17
 
 
 Estado 1
 
-   10 operation: T_ID .
-   11 operand: T_ID .
+   11 operation: T_ID .
+   12 operand: T_ID .
 
-    T_PAR_D      reduce usando la regla 10 (operation)
-    T_SEMICOLON  reduce usando la regla 10 (operation)
-    $default     reduce usando la regla 11 (operand)
+    T_PAR_D      reduce usando la regla 11 (operation)
+    T_SEMICOLON  reduce usando la regla 11 (operation)
+    $default     reduce usando la regla 12 (operand)
 
 
 Estado 2
 
-    7 if: T_IF . cond then else
+    8 if: T_IF . cond then else
 
     T_PAR_I  desplazar e ir al estado 4
 
-    cond  ir al estado 16
+    cond  ir al estado 18
 
 
 Estado 3
 
-   32 while: T_WHILE . cond then
+   33 while: T_WHILE . cond then
 
     T_PAR_I  desplazar e ir al estado 4
 
-    cond  ir al estado 17
+    cond  ir al estado 19
 
 
 Estado 4
 
-    8 cond: T_PAR_I . operation T_PAR_D
+    9 cond: T_PAR_I . operation T_PAR_D
 
     T_ID       desplazar e ir al estado 1
     T_PAR_I    desplazar e ir al estado 4
@@ -180,47 +190,54 @@ Estado 4
     T_STRING   desplazar e ir al estado 6
     T_INTEGER  desplazar e ir al estado 7
 
-    cond       ir al estado 12
-    operation  ir al estado 18
-    operand    ir al estado 14
+    cond       ir al estado 13
+    operation  ir al estado 20
+    operand    ir al estado 15
 
 
 Estado 5
 
-   13 operand: T_NUMBER .
-
-    $default  reduce usando la regla 13 (operand)
-
-
-Estado 6
-
-   12 operand: T_STRING .
-
-    $default  reduce usando la regla 12 (operand)
-
-
-Estado 7
-
-   14 operand: T_INTEGER .
+   14 operand: T_NUMBER .
 
     $default  reduce usando la regla 14 (operand)
 
 
+Estado 6
+
+   13 operand: T_STRING .
+
+    $default  reduce usando la regla 13 (operand)
+
+
+Estado 7
+
+   15 operand: T_INTEGER .
+
+    $default  reduce usando la regla 15 (operand)
+
+
 Estado 8
 
-    0 $accept: sigma . $end
+   34 for: T_FOR . T_PAR_I T_ID T_FROM operand T_TO operand T_PAR_D then
 
-    $end  desplazar e ir al estado 19
+    T_PAR_I  desplazar e ir al estado 21
 
 
 Estado 9
+
+    0 $accept: sigma . $end
+
+    $end  desplazar e ir al estado 22
+
+
+Estado 10
 
     1 sigma: lineas .
 
     $default  reduce usando la regla 1 (sigma)
 
 
-Estado 10
+Estado 11
 
     2 lineas: linea . lineas
 
@@ -231,311 +248,237 @@ Estado 10
     T_NUMBER   desplazar e ir al estado 5
     T_STRING   desplazar e ir al estado 6
     T_INTEGER  desplazar e ir al estado 7
+    T_FOR      desplazar e ir al estado 8
 
     $default  reduce usando la regla 3 (lineas)
 
-    lineas     ir al estado 20
-    linea      ir al estado 10
-    if         ir al estado 11
-    cond       ir al estado 12
-    operation  ir al estado 13
-    operand    ir al estado 14
-    while      ir al estado 15
+    lineas     ir al estado 23
+    linea      ir al estado 11
+    if         ir al estado 12
+    cond       ir al estado 13
+    operation  ir al estado 14
+    operand    ir al estado 15
+    while      ir al estado 16
+    for        ir al estado 17
 
 
-Estado 11
+Estado 12
 
     4 linea: if .
 
     $default  reduce usando la regla 4 (linea)
 
 
-Estado 12
-
-   15 operand: cond .
-
-    $default  reduce usando la regla 15 (operand)
-
-
 Estado 13
 
-    6 linea: operation . T_SEMICOLON
+   16 operand: cond .
 
-    T_SEMICOLON  desplazar e ir al estado 21
+    $default  reduce usando la regla 16 (operand)
 
 
 Estado 14
 
-    9 operation: operand . operator operand
+    7 linea: operation . T_SEMICOLON
 
-    T_OP_ASSIGN      desplazar e ir al estado 22
-    T_OP_EQUAL       desplazar e ir al estado 23
-    T_OP_DISTINCT    desplazar e ir al estado 24
-    T_OP_LESSER      desplazar e ir al estado 25
-    T_OP_GREATER     desplazar e ir al estado 26
-    T_OP_LESSER_EQ   desplazar e ir al estado 27
-    T_OP_GREATER_EQ  desplazar e ir al estado 28
-    T_OP_AND         desplazar e ir al estado 29
-    T_OP_OR          desplazar e ir al estado 30
-    T_AOP_PLUS       desplazar e ir al estado 31
-    T_AOP_MINUS      desplazar e ir al estado 32
-    T_AOP_MUL        desplazar e ir al estado 33
-    T_AOP_DIV        desplazar e ir al estado 34
-
-    operator  ir al estado 35
+    T_SEMICOLON  desplazar e ir al estado 24
 
 
 Estado 15
+
+   10 operation: operand . operator operand
+
+    T_OP_ASSIGN      desplazar e ir al estado 25
+    T_OP_EQUAL       desplazar e ir al estado 26
+    T_OP_DISTINCT    desplazar e ir al estado 27
+    T_OP_LESSER      desplazar e ir al estado 28
+    T_OP_GREATER     desplazar e ir al estado 29
+    T_OP_LESSER_EQ   desplazar e ir al estado 30
+    T_OP_GREATER_EQ  desplazar e ir al estado 31
+    T_OP_AND         desplazar e ir al estado 32
+    T_OP_OR          desplazar e ir al estado 33
+    T_AOP_PLUS       desplazar e ir al estado 34
+    T_AOP_MINUS      desplazar e ir al estado 35
+    T_AOP_MUL        desplazar e ir al estado 36
+    T_AOP_DIV        desplazar e ir al estado 37
+
+    operator  ir al estado 38
+
+
+Estado 16
 
     5 linea: while .
 
     $default  reduce usando la regla 5 (linea)
 
 
-Estado 16
-
-    7 if: T_IF cond . then else
-
-    T_LLA_I  desplazar e ir al estado 36
-
-    then  ir al estado 37
-
-
 Estado 17
 
-   32 while: T_WHILE cond . then
+    6 linea: for .
 
-    T_LLA_I  desplazar e ir al estado 36
-
-    then  ir al estado 38
+    $default  reduce usando la regla 6 (linea)
 
 
 Estado 18
 
-    8 cond: T_PAR_I operation . T_PAR_D
+    8 if: T_IF cond . then else
 
-    T_PAR_D  desplazar e ir al estado 39
+    T_LLA_I  desplazar e ir al estado 39
+
+    then  ir al estado 40
 
 
 Estado 19
+
+   33 while: T_WHILE cond . then
+
+    T_LLA_I  desplazar e ir al estado 39
+
+    then  ir al estado 41
+
+
+Estado 20
+
+    9 cond: T_PAR_I operation . T_PAR_D
+
+    T_PAR_D  desplazar e ir al estado 42
+
+
+Estado 21
+
+   34 for: T_FOR T_PAR_I . T_ID T_FROM operand T_TO operand T_PAR_D then
+
+    T_ID  desplazar e ir al estado 43
+
+
+Estado 22
 
     0 $accept: sigma $end .
 
     $default  aceptar
 
 
-Estado 20
+Estado 23
 
     2 lineas: linea lineas .
 
     $default  reduce usando la regla 2 (lineas)
 
 
-Estado 21
-
-    6 linea: operation T_SEMICOLON .
-
-    $default  reduce usando la regla 6 (linea)
-
-
-Estado 22
-
-   24 operator: T_OP_ASSIGN .
-
-    $default  reduce usando la regla 24 (operator)
-
-
-Estado 23
-
-   16 operator: T_OP_EQUAL .
-
-    $default  reduce usando la regla 16 (operator)
-
-
 Estado 24
 
-   17 operator: T_OP_DISTINCT .
+    7 linea: operation T_SEMICOLON .
 
-    $default  reduce usando la regla 17 (operator)
+    $default  reduce usando la regla 7 (linea)
 
 
 Estado 25
 
-   18 operator: T_OP_LESSER .
-
-    $default  reduce usando la regla 18 (operator)
-
-
-Estado 26
-
-   19 operator: T_OP_GREATER .
-
-    $default  reduce usando la regla 19 (operator)
-
-
-Estado 27
-
-   20 operator: T_OP_LESSER_EQ .
-
-    $default  reduce usando la regla 20 (operator)
-
-
-Estado 28
-
-   21 operator: T_OP_GREATER_EQ .
-
-    $default  reduce usando la regla 21 (operator)
-
-
-Estado 29
-
-   22 operator: T_OP_AND .
-
-    $default  reduce usando la regla 22 (operator)
-
-
-Estado 30
-
-   23 operator: T_OP_OR .
-
-    $default  reduce usando la regla 23 (operator)
-
-
-Estado 31
-
-   25 operator: T_AOP_PLUS .
+   25 operator: T_OP_ASSIGN .
 
     $default  reduce usando la regla 25 (operator)
 
 
+Estado 26
+
+   17 operator: T_OP_EQUAL .
+
+    $default  reduce usando la regla 17 (operator)
+
+
+Estado 27
+
+   18 operator: T_OP_DISTINCT .
+
+    $default  reduce usando la regla 18 (operator)
+
+
+Estado 28
+
+   19 operator: T_OP_LESSER .
+
+    $default  reduce usando la regla 19 (operator)
+
+
+Estado 29
+
+   20 operator: T_OP_GREATER .
+
+    $default  reduce usando la regla 20 (operator)
+
+
+Estado 30
+
+   21 operator: T_OP_LESSER_EQ .
+
+    $default  reduce usando la regla 21 (operator)
+
+
+Estado 31
+
+   22 operator: T_OP_GREATER_EQ .
+
+    $default  reduce usando la regla 22 (operator)
+
+
 Estado 32
 
-   26 operator: T_AOP_MINUS .
+   23 operator: T_OP_AND .
 
-    $default  reduce usando la regla 26 (operator)
+    $default  reduce usando la regla 23 (operator)
 
 
 Estado 33
 
-   27 operator: T_AOP_MUL .
+   24 operator: T_OP_OR .
 
-    $default  reduce usando la regla 27 (operator)
+    $default  reduce usando la regla 24 (operator)
 
 
 Estado 34
 
-   28 operator: T_AOP_DIV .
+   26 operator: T_AOP_PLUS .
 
-    $default  reduce usando la regla 28 (operator)
+    $default  reduce usando la regla 26 (operator)
 
 
 Estado 35
 
-    9 operation: operand operator . operand
+   27 operator: T_AOP_MINUS .
 
-    T_ID       desplazar e ir al estado 40
-    T_PAR_I    desplazar e ir al estado 4
-    T_NUMBER   desplazar e ir al estado 5
-    T_STRING   desplazar e ir al estado 6
-    T_INTEGER  desplazar e ir al estado 7
-
-    cond     ir al estado 12
-    operand  ir al estado 41
+    $default  reduce usando la regla 27 (operator)
 
 
 Estado 36
 
-   29 then: T_LLA_I . lineas T_LLA_D
+   28 operator: T_AOP_MUL .
 
-    T_ID       desplazar e ir al estado 1
-    T_IF       desplazar e ir al estado 2
-    T_WHILE    desplazar e ir al estado 3
-    T_PAR_I    desplazar e ir al estado 4
-    T_NUMBER   desplazar e ir al estado 5
-    T_STRING   desplazar e ir al estado 6
-    T_INTEGER  desplazar e ir al estado 7
-
-    $default  reduce usando la regla 3 (lineas)
-
-    lineas     ir al estado 42
-    linea      ir al estado 10
-    if         ir al estado 11
-    cond       ir al estado 12
-    operation  ir al estado 13
-    operand    ir al estado 14
-    while      ir al estado 15
+    $default  reduce usando la regla 28 (operator)
 
 
 Estado 37
 
-    7 if: T_IF cond then . else
+   29 operator: T_AOP_DIV .
 
-    T_ELSE  desplazar e ir al estado 43
-
-    $default  reduce usando la regla 31 (else)
-
-    else  ir al estado 44
+    $default  reduce usando la regla 29 (operator)
 
 
 Estado 38
 
-   32 while: T_WHILE cond then .
+   10 operation: operand operator . operand
 
-    $default  reduce usando la regla 32 (while)
+    T_ID       desplazar e ir al estado 44
+    T_PAR_I    desplazar e ir al estado 4
+    T_NUMBER   desplazar e ir al estado 5
+    T_STRING   desplazar e ir al estado 6
+    T_INTEGER  desplazar e ir al estado 7
+
+    cond     ir al estado 13
+    operand  ir al estado 45
 
 
 Estado 39
 
-    8 cond: T_PAR_I operation T_PAR_D .
-
-    $default  reduce usando la regla 8 (cond)
-
-
-Estado 40
-
-   11 operand: T_ID .
-
-    $default  reduce usando la regla 11 (operand)
-
-
-Estado 41
-
-    9 operation: operand operator operand .
-
-    $default  reduce usando la regla 9 (operation)
-
-
-Estado 42
-
-   29 then: T_LLA_I lineas . T_LLA_D
-
-    T_LLA_D  desplazar e ir al estado 45
-
-
-Estado 43
-
-   30 else: T_ELSE . T_LLA_I lineas T_LLA_D
-
-    T_LLA_I  desplazar e ir al estado 46
-
-
-Estado 44
-
-    7 if: T_IF cond then else .
-
-    $default  reduce usando la regla 7 (if)
-
-
-Estado 45
-
-   29 then: T_LLA_I lineas T_LLA_D .
-
-    $default  reduce usando la regla 29 (then)
-
-
-Estado 46
-
-   30 else: T_ELSE T_LLA_I . lineas T_LLA_D
+   30 then: T_LLA_I . lineas T_LLA_D
 
     T_ID       desplazar e ir al estado 1
     T_IF       desplazar e ir al estado 2
@@ -544,27 +487,186 @@ Estado 46
     T_NUMBER   desplazar e ir al estado 5
     T_STRING   desplazar e ir al estado 6
     T_INTEGER  desplazar e ir al estado 7
+    T_FOR      desplazar e ir al estado 8
 
     $default  reduce usando la regla 3 (lineas)
 
-    lineas     ir al estado 47
-    linea      ir al estado 10
-    if         ir al estado 11
-    cond       ir al estado 12
-    operation  ir al estado 13
-    operand    ir al estado 14
-    while      ir al estado 15
+    lineas     ir al estado 46
+    linea      ir al estado 11
+    if         ir al estado 12
+    cond       ir al estado 13
+    operation  ir al estado 14
+    operand    ir al estado 15
+    while      ir al estado 16
+    for        ir al estado 17
+
+
+Estado 40
+
+    8 if: T_IF cond then . else
+
+    T_ELSE  desplazar e ir al estado 47
+
+    $default  reduce usando la regla 32 (else)
+
+    else  ir al estado 48
+
+
+Estado 41
+
+   33 while: T_WHILE cond then .
+
+    $default  reduce usando la regla 33 (while)
+
+
+Estado 42
+
+    9 cond: T_PAR_I operation T_PAR_D .
+
+    $default  reduce usando la regla 9 (cond)
+
+
+Estado 43
+
+   34 for: T_FOR T_PAR_I T_ID . T_FROM operand T_TO operand T_PAR_D then
+
+    T_FROM  desplazar e ir al estado 49
+
+
+Estado 44
+
+   12 operand: T_ID .
+
+    $default  reduce usando la regla 12 (operand)
+
+
+Estado 45
+
+   10 operation: operand operator operand .
+
+    $default  reduce usando la regla 10 (operation)
+
+
+Estado 46
+
+   30 then: T_LLA_I lineas . T_LLA_D
+
+    T_LLA_D  desplazar e ir al estado 50
 
 
 Estado 47
 
-   30 else: T_ELSE T_LLA_I lineas . T_LLA_D
+   31 else: T_ELSE . T_LLA_I lineas T_LLA_D
 
-    T_LLA_D  desplazar e ir al estado 48
+    T_LLA_I  desplazar e ir al estado 51
 
 
 Estado 48
 
-   30 else: T_ELSE T_LLA_I lineas T_LLA_D .
+    8 if: T_IF cond then else .
 
-    $default  reduce usando la regla 30 (else)
+    $default  reduce usando la regla 8 (if)
+
+
+Estado 49
+
+   34 for: T_FOR T_PAR_I T_ID T_FROM . operand T_TO operand T_PAR_D then
+
+    T_ID       desplazar e ir al estado 44
+    T_PAR_I    desplazar e ir al estado 4
+    T_NUMBER   desplazar e ir al estado 5
+    T_STRING   desplazar e ir al estado 6
+    T_INTEGER  desplazar e ir al estado 7
+
+    cond     ir al estado 13
+    operand  ir al estado 52
+
+
+Estado 50
+
+   30 then: T_LLA_I lineas T_LLA_D .
+
+    $default  reduce usando la regla 30 (then)
+
+
+Estado 51
+
+   31 else: T_ELSE T_LLA_I . lineas T_LLA_D
+
+    T_ID       desplazar e ir al estado 1
+    T_IF       desplazar e ir al estado 2
+    T_WHILE    desplazar e ir al estado 3
+    T_PAR_I    desplazar e ir al estado 4
+    T_NUMBER   desplazar e ir al estado 5
+    T_STRING   desplazar e ir al estado 6
+    T_INTEGER  desplazar e ir al estado 7
+    T_FOR      desplazar e ir al estado 8
+
+    $default  reduce usando la regla 3 (lineas)
+
+    lineas     ir al estado 53
+    linea      ir al estado 11
+    if         ir al estado 12
+    cond       ir al estado 13
+    operation  ir al estado 14
+    operand    ir al estado 15
+    while      ir al estado 16
+    for        ir al estado 17
+
+
+Estado 52
+
+   34 for: T_FOR T_PAR_I T_ID T_FROM operand . T_TO operand T_PAR_D then
+
+    T_TO  desplazar e ir al estado 54
+
+
+Estado 53
+
+   31 else: T_ELSE T_LLA_I lineas . T_LLA_D
+
+    T_LLA_D  desplazar e ir al estado 55
+
+
+Estado 54
+
+   34 for: T_FOR T_PAR_I T_ID T_FROM operand T_TO . operand T_PAR_D then
+
+    T_ID       desplazar e ir al estado 44
+    T_PAR_I    desplazar e ir al estado 4
+    T_NUMBER   desplazar e ir al estado 5
+    T_STRING   desplazar e ir al estado 6
+    T_INTEGER  desplazar e ir al estado 7
+
+    cond     ir al estado 13
+    operand  ir al estado 56
+
+
+Estado 55
+
+   31 else: T_ELSE T_LLA_I lineas T_LLA_D .
+
+    $default  reduce usando la regla 31 (else)
+
+
+Estado 56
+
+   34 for: T_FOR T_PAR_I T_ID T_FROM operand T_TO operand . T_PAR_D then
+
+    T_PAR_D  desplazar e ir al estado 57
+
+
+Estado 57
+
+   34 for: T_FOR T_PAR_I T_ID T_FROM operand T_TO operand T_PAR_D . then
+
+    T_LLA_I  desplazar e ir al estado 39
+
+    then  ir al estado 58
+
+
+Estado 58
+
+   34 for: T_FOR T_PAR_I T_ID T_FROM operand T_TO operand T_PAR_D then .
+
+    $default  reduce usando la regla 34 (for)

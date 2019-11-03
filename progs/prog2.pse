@@ -5,3 +5,7 @@ a <= 35;
 mientras(b menor a) {
 	b <= (b + 1);
 }
+
+para(i desde b hasta (a -1)) {
+	b <= 2;
+}

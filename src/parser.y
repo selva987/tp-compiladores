@@ -17,8 +17,8 @@
 }
 
 %token <id> T_ID
-%token T_IF T_WHILE T_LLA_I T_LLA_D T_PAR_I T_PAR_D T_ELSE T_TYPE_NUMBER T_TYPE_STRING T_COMMA T_OP_ASSIGN T_OP_EQUAL T_OP_DISTINCT T_OP_LESSER T_OP_GREATER T_OP_LESSER_EQ T_OP_GREATER_EQ T_OP_AND T_OP_OR T_AOP_PLUS T_AOP_MINUS T_AOP_MUL T_AOP_DIV T_AOP_POW T_NUMBER T_STRING T_INTEGER T_SEMICOLON
-%type <node> linea lineas sigma if cond then else /*decl type*/ while operation operand operator
+%token T_IF T_WHILE T_LLA_I T_LLA_D T_PAR_I T_PAR_D T_ELSE T_TYPE_NUMBER T_TYPE_STRING T_COMMA T_OP_ASSIGN T_OP_EQUAL T_OP_DISTINCT T_OP_LESSER T_OP_GREATER T_OP_LESSER_EQ T_OP_GREATER_EQ T_OP_AND T_OP_OR T_AOP_PLUS T_AOP_MINUS T_AOP_MUL T_AOP_DIV T_AOP_POW T_NUMBER T_STRING T_INTEGER T_SEMICOLON T_FOR T_FROM T_TO
+%type <node> linea lineas sigma if cond then else /*decl type*/ while operation operand operator for
 
 
 
@@ -33,6 +33,7 @@ lineas: linea lineas                        { $$ = n_blocks($1, $2); }
 
 linea: if                                   { $$ = $1; }
      | while                                { $$ = $1; }
+     | for                                { $$ = $1; }
      | operation T_SEMICOLON                { $$ = $1; }
      /*| decl                               { $$ = NULL; }*/
      ;
@@ -80,6 +81,10 @@ else: T_ELSE T_LLA_I lineas T_LLA_D        { $$ = $3; }
 
 while: T_WHILE cond then                   { $$ = n_while($2, $3); }
     ;
+
+for: T_FOR T_PAR_I T_ID T_FROM operand T_TO operand T_PAR_D then         { $$ =  n_for(n_id($3,0), $5, $7, $9); }
+    ;
+
     /*
 decl: type vars                            { $$ = NULL; }
     ;

@@ -26,8 +26,11 @@ cadena				{ return T_TYPE_STRING; }
 						return T_NUMBER; 
 					}
 si                 	{ return T_IF; }
-mientras			{ return T_WHILE; }
 sino               	{ return T_ELSE; }
+mientras			{ return T_WHILE; }
+para				{ return T_FOR; }
+desde				{ return T_FROM; }
+hasta				{ return T_TO; }
 \{                  { return T_LLA_I; }
 \}                  { return T_LLA_D; }
 \(                  { return T_PAR_I; }
@@ -53,7 +56,7 @@ potencia	        { return T_AOP_POW; }
                         return T_ID;
                     }
 [\n]             { st_newline(); }
-[\t ]
+[\t ]	;
 .                   {   return lexer_error(line_number, yytext);  }
 
 %%

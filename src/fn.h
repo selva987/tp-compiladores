@@ -15,6 +15,8 @@ struct ast_node* n_while(struct ast_node* cond, struct ast_node* body);
 
 struct ast_node* n_const_integer(int number);
 
-#
+#define N_FOR	5
+
+struct ast_node* n_for(struct ast_node* var, struct ast_node* from, struct ast_node* to, struct ast_node* body);
 
 #endif /* FN_H */
