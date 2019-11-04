@@ -32,6 +32,7 @@ para				{ return T_FOR; }
 desde				{ return T_FROM; }
 hasta				{ return T_TO; }
 mostrar				{ return T_ECHO; }
+pedir				{ return T_INPUT; }
 \{                  { return T_LLA_I; }
 \}                  { return T_LLA_D; }
 \(                  { return T_PAR_I; }

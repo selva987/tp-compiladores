@@ -142,6 +142,16 @@ void print_echo(struct ast_node* node)
     print_node(n);
 }
 
+void print_input(struct ast_node* node) 
+{
+    struct ast_node* n;
+    n = ast_get_nth_child(node, 0);
+
+    print_node(n);
+
+    printf(" = fgets(STDIN)");
+}
+
 void print_expr(struct ast_node* node)
 {
     struct ast_node* n;
@@ -259,6 +269,9 @@ void print_node(struct ast_node* node)
             print_for(node);
         case N_ECHO:
             print_echo(node);
+            break;
+        case N_INPUT:
+            print_input(node);
             break;
         case N_EXPR:
             print_expr(node);

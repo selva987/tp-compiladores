@@ -46,3 +46,10 @@ struct ast_node* n_echo(struct ast_node* arg) {
 
     return _echo;
 }
+
+struct ast_node* n_input(struct ast_node* var) {
+	struct ast_node* _input = ast_new_node(N_INPUT);
+    ast_add_child(_input, var);
+
+    return _input;
+}

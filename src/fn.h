@@ -23,4 +23,8 @@ struct ast_node* n_for(struct ast_node* var, struct ast_node* from, struct ast_n
 
 struct ast_node* n_echo(struct ast_node* arg);
 
+#define N_INPUT	7
+
+struct ast_node* n_input(struct ast_node* var);
+
 #endif /* FN_H */

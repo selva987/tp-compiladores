@@ -17,8 +17,8 @@
 }
 
 %token <id> T_ID
-%token T_IF T_WHILE T_LLA_I T_LLA_D T_PAR_I T_PAR_D T_ELSE T_TYPE_NUMBER T_TYPE_STRING T_COMMA T_OP_ASSIGN T_OP_EQUAL T_OP_DISTINCT T_OP_LESSER T_OP_GREATER T_OP_LESSER_EQ T_OP_GREATER_EQ T_OP_AND T_OP_OR T_AOP_PLUS T_AOP_MINUS T_AOP_MUL T_AOP_DIV T_AOP_POW T_NUMBER T_STRING T_INTEGER T_SEMICOLON T_FOR T_FROM T_TO T_ECHO
-%type <node> linea lineas sigma if cond then else /*decl type*/ while operation operand operator for echo
+%token T_IF T_WHILE T_LLA_I T_LLA_D T_PAR_I T_PAR_D T_ELSE T_TYPE_NUMBER T_TYPE_STRING T_COMMA T_OP_ASSIGN T_OP_EQUAL T_OP_DISTINCT T_OP_LESSER T_OP_GREATER T_OP_LESSER_EQ T_OP_GREATER_EQ T_OP_AND T_OP_OR T_AOP_PLUS T_AOP_MINUS T_AOP_MUL T_AOP_DIV T_AOP_POW T_NUMBER T_STRING T_INTEGER T_SEMICOLON T_FOR T_FROM T_TO T_ECHO T_INPUT
+%type <node> linea lineas sigma if cond then else /*decl type*/ while operation operand operator for echo input
 
 
 
@@ -47,6 +47,7 @@ cond: T_PAR_I operation T_PAR_D             { $$ = $2; }
 
 operation: operand operator operand         { $$ = n_operation($1, $2, $3); }
     | echo                                  { $$ = $1; }
+    | input                                 { $$ = $1; }
     | T_ID                                  { $$ = n_id($1, 0); }
     ;
 
@@ -87,6 +88,10 @@ for: T_FOR T_PAR_I T_ID T_FROM operand T_TO operand T_PAR_D then         { $$ = 
     ;
 
 echo: T_ECHO T_PAR_I operand T_PAR_D       { $$ = n_echo($3); }
+    ;
+
+input: T_INPUT T_PAR_I T_ID T_PAR_D        { $$ = n_input(n_id($3,0)); }
+    ;
 
     /*
 decl: type vars                            { $$ = NULL; }

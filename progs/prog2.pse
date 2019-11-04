@@ -1,6 +1,10 @@
 b <= 1;
-c <= 'chau';
+c <= 'a ver si detecta esto como cadena o condicion';
 a <= 35;
+
+si((a igual 1) o (a igual 2)) {
+	b <= 2;
+}
 
 mientras(b menor a) {
 	b <= (b + 1);
@@ -12,3 +16,4 @@ para(i desde b hasta (a -1)) {
 
 mostrar(b);
 mostrar('hola');
+pedir(a);
