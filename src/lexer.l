@@ -37,6 +37,8 @@ pedir				{ return T_INPUT; }
 \}                  { return T_LLA_D; }
 \(                  { return T_PAR_I; }
 \)                  { return T_PAR_D; }
+\[                  { return T_BRA_I; }
+\]                  { return T_BRA_D; }
 ,                   { return T_COMMA; }
 \<=					{ return T_OP_ASSIGN; }
 igual		        { return T_OP_EQUAL; }

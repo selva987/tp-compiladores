@@ -53,7 +53,18 @@ void print_blocks(struct ast_node* node)
 
 void print_id(struct ast_node* node)
 {
+    struct ast_node* n;
+
     printf("$%s", node->data.id.id);
+    
+    //busco si tengo posicion de array, si la tengo imprimo corchetes
+    n = ast_get_nth_child(node, 0);
+    if(n != NULL) {
+        printf("[");
+        print_node(n);
+        printf("]");
+    }
+
 }
 
 void print_if(struct ast_node* node)
