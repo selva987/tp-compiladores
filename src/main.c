@@ -204,6 +204,12 @@ void print_operand(struct ast_node* node)
         case T_OP_ASSIGN:
             printf("=");
             break;
+        case T_OP_ACUMULATE_PLUS:
+            printf("+=");
+            break;
+        case T_OP_ACUMULATE_MINUS:
+            printf("-=");
+            break;
         case T_AOP_PLUS:
             printf("+");
             break;

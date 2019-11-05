@@ -41,6 +41,8 @@ pedir				{ return T_INPUT; }
 \]                  { return T_BRA_D; }
 ,                   { return T_COMMA; }
 \<=					{ return T_OP_ASSIGN; }
+\<\+				{ return T_OP_ACUMULATE_PLUS; }
+\<\-				{ return T_OP_ACUMULATE_MINUS; }
 igual		        { return T_OP_EQUAL; }
 distinto	        { return T_OP_DISTINCT; }
 menor		        { return T_OP_LESSER; }
