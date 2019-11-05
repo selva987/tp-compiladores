@@ -2,7 +2,10 @@ b <= 1;
 c <= 'a ver si detecta esto como cadena o condicion';
 a <= 35;
 
+
 b <+ 2;
+
+b <- 1;
 
 ar[(b+1)] <= 50;
 
