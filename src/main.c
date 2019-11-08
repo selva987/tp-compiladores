@@ -163,6 +163,23 @@ void print_input(struct ast_node* node)
     printf(" = fgets(STDIN)");
 }
 
+void print_load_array(struct ast_node* node) 
+{
+    struct ast_node* n;
+    
+
+    printf("if($___nuestroComp_handle = fopen(");
+    n = ast_get_nth_child(node, 1);
+    print_node(n);
+    printf(",'r'))");
+    printf("while(");
+    n = ast_get_nth_child(node, 0);
+    print_node(n);
+    printf("[] = fgets($___nuestroComp_handle));");
+    printf("fclose($___nuestroComp_handle);");
+    
+}
+
 void print_expr(struct ast_node* node)
 {
     struct ast_node* n;
@@ -290,6 +307,9 @@ void print_node(struct ast_node* node)
         case N_INPUT:
             print_input(node);
             break;
+        case N_LOAD_ARRAY:
+            print_load_array(node);
+            break;
         case N_EXPR:
             print_expr(node);
             break;
@@ -342,7 +362,7 @@ int main(int argc, char **argv)
 
     print_ast(ast);
 
-    printf("?>");
+    printf("exit;\n ?>");
 
     return 0;
 }

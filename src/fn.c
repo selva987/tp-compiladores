@@ -53,3 +53,13 @@ struct ast_node* n_input(struct ast_node* var) {
 
     return _input;
 }
+
+struct ast_node* n_loadArray(struct ast_node* var, struct ast_node* file) {
+	struct ast_node* node = ast_new_node(N_LOAD_ARRAY);
+
+	ast_add_child(node, var);
+	ast_add_child(node, file);
+
+	return node;
+
+}

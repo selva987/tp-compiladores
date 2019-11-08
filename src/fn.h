@@ -27,4 +27,8 @@ struct ast_node* n_echo(struct ast_node* arg);
 
 struct ast_node* n_input(struct ast_node* var);
 
+#define N_LOAD_ARRAY	8
+
+struct ast_node* n_loadArray(struct ast_node* var, struct ast_node* file);
+
 #endif /* FN_H */

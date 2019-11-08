@@ -24,3 +24,5 @@ para(i desde b hasta (a -1)) {
 mostrar(b);
 mostrar('hola');
 pedir(a);
+
+cargarDesdeArchivo(x,'ruta.txt')
