@@ -35,4 +35,8 @@ struct ast_node* n_loadArray(struct ast_node* var, struct ast_node* file);
 
 struct ast_node* n_foreach(struct ast_node* var, struct ast_node* array, struct ast_node* then);
 
+#define N_EXIT	10
+
+struct ast_node* n_exit(int code);
+
 #endif /* FN_H */

@@ -36,6 +36,7 @@ pedir				{ return T_INPUT; }
 cargardesdearchivo	{ return T_LOAD_ARRAY; }
 cada				{ return T_FOREACH; }
 en					{ return T_IN; }
+terminar			{ return T_EXIT; }
 \{                  { return T_LLA_I; }
 \}                  { return T_LLA_D; }
 \(                  { return T_PAR_I; }

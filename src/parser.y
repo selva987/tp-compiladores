@@ -1,12 +1,15 @@
 %{
     /**
      * Analizador Sintáctico - Parser
+     
      */
 
   	#include <stdio.h>
     #include "../lib/cya.h"
     #include "fn.h"
 %}
+
+%define parse.error verbose
 
 %union {
     char* id;
@@ -17,8 +20,8 @@
 }
 
 %token <id> T_ID
-%token T_IF T_WHILE T_LLA_I T_LLA_D T_PAR_I T_PAR_D T_BRA_I T_BRA_D T_ELSE T_TYPE_NUMBER T_TYPE_STRING T_COMMA T_OP_ASSIGN T_OP_ACUMULATE_PLUS T_OP_ACUMULATE_MINUS T_OP_CONCAT T_OP_EQUAL T_OP_DISTINCT T_OP_LESSER T_OP_GREATER T_OP_LESSER_EQ T_OP_GREATER_EQ T_OP_AND T_OP_OR T_AOP_PLUS T_AOP_MINUS T_AOP_MUL T_AOP_DIV T_AOP_POW T_NUMBER T_STRING T_INTEGER T_SEMICOLON T_FOR T_FROM T_TO T_ECHO T_INPUT T_LOAD_ARRAY T_FOREACH T_IN
-%type <node> linea lineas sigma if cond then else /*decl type*/ while operation operand operator for echo input id loadArray foreach
+%token T_IF T_WHILE T_LLA_I T_LLA_D T_PAR_I T_PAR_D T_BRA_I T_BRA_D T_ELSE T_TYPE_NUMBER T_TYPE_STRING T_COMMA T_OP_ASSIGN T_OP_ACUMULATE_PLUS T_OP_ACUMULATE_MINUS T_OP_CONCAT T_OP_EQUAL T_OP_DISTINCT T_OP_LESSER T_OP_GREATER T_OP_LESSER_EQ T_OP_GREATER_EQ T_OP_AND T_OP_OR T_AOP_PLUS T_AOP_MINUS T_AOP_MUL T_AOP_DIV T_AOP_POW T_NUMBER T_STRING T_INTEGER T_SEMICOLON T_FOR T_FROM T_TO T_ECHO T_INPUT T_LOAD_ARRAY T_FOREACH T_IN T_EXIT
+%type <node> linea lineas sigma if cond then else /*decl type*/ while operation operand operator for echo input id loadArray foreach exit
 
 
 
@@ -37,7 +40,7 @@ linea: if                                   { $$ = $1; }
      | foreach                              { $$ = $1; }
      | operation T_SEMICOLON                { $$ = $1; }
      | loadArray T_SEMICOLON                { $$ = $1; }
-     | loadArray                            { $$ = $1; }
+     | exit T_SEMICOLON                     { $$ = $1; }
      /*| decl                               { $$ = NULL; }*/
      ;
 
@@ -108,19 +111,8 @@ id: T_ID T_BRA_I operand T_BRA_D           { $$ = n_id($1, $3); }
 loadArray: T_LOAD_ARRAY T_PAR_I id T_COMMA operand T_PAR_D    { $$ = n_loadArray($3, $5); }
     ;
 
-    /*
-decl: type vars                            { $$ = NULL; }
+exit: T_EXIT T_PAR_I T_INTEGER T_PAR_D     { $$ = n_exit(yylval.integer); }
     ;
-
-type: T_TYPE_NUMBER                        { $$ = NULL; }
-    | T_TYPE_STRING                        { $$ =  }
-    ;
-
-vars: id T_COMMA vars                      { $$ = NULL; }
-    | id                                   { $$ = $1; }
-    ;
-
-*/
 
 %%
 

@@ -76,3 +76,10 @@ struct ast_node* n_foreach(struct ast_node* var, struct ast_node* array, struct 
 
 	return node;
 }
+
+struct ast_node* n_exit(int code) 
+{
+	struct ast_node* node = ast_new_node(N_EXIT);
+    node->data.integer = code;
+    return node;
+}

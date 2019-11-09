@@ -318,6 +318,11 @@ void print_const_string(struct ast_node* node)
     fprintf(yyout,"%s", node->data.string);
 }
 
+void print_exit(struct ast_node* node)
+{
+    fprintf(yyout,"exit(%d)", node->data.integer);
+}
+
 
 
 void print_node(struct ast_node* node)
@@ -367,6 +372,9 @@ void print_node(struct ast_node* node)
             break;
         case N_CONST_STRING:
             print_const_string(node);
+            break;
+        case N_EXIT:
+            print_exit(node);
             break;
         default:
             fprintf(yyout,"nodo(%d) ??\n", node->type);
