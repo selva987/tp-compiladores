@@ -1,7 +1,6 @@
 b <= 1;
-c <= 'a ver si detecta esto como cadena o condicion';
+c <= "a ver si detecta esto como cadena o condicion";
 a <= 35;
-
 
 b <+ 2;
 
@@ -25,4 +24,14 @@ mostrar(b);
 mostrar('hola');
 pedir(a);
 
-cargarDesdeArchivo(x,'ruta.txt')
+cargardesdearchivo(x,a);
+
+suma <= 0;
+i <= 0;
+
+cada(el en x) {
+	suma <+ el;
+	i <+ 1;
+}
+mostrar("Promedio: ");
+mostrar((suma / i));

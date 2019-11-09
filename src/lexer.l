@@ -13,7 +13,7 @@
 %%
 entero              { return T_TYPE_NUMBER; }
 cadena				{ return T_TYPE_STRING; }
-\'.*\'		        { 
+(\'.*\'|\".*\")     { 
 						yylval.string = strdup(yytext); 
 						return T_STRING; 
 					}
@@ -33,7 +33,9 @@ desde				{ return T_FROM; }
 hasta				{ return T_TO; }
 mostrar				{ return T_ECHO; }
 pedir				{ return T_INPUT; }
-cargarDesdeArchivo	{ return T_LOAD_ARRAY; }
+cargardesdearchivo	{ return T_LOAD_ARRAY; }
+cada				{ return T_FOREACH; }
+en					{ return T_IN; }
 \{                  { return T_LLA_I; }
 \}                  { return T_LLA_D; }
 \(                  { return T_PAR_I; }

@@ -40,26 +40,39 @@ struct ast_node* n_for(struct ast_node* var, struct ast_node* from, struct ast_n
     return _for;
 }
 
-struct ast_node* n_echo(struct ast_node* arg) {
+struct ast_node* n_echo(struct ast_node* arg) 
+{
 	struct ast_node* _echo = ast_new_node(N_ECHO);
     ast_add_child(_echo, arg);
 
     return _echo;
 }
 
-struct ast_node* n_input(struct ast_node* var) {
+struct ast_node* n_input(struct ast_node* var) 
+{
 	struct ast_node* _input = ast_new_node(N_INPUT);
     ast_add_child(_input, var);
 
     return _input;
 }
 
-struct ast_node* n_loadArray(struct ast_node* var, struct ast_node* file) {
+struct ast_node* n_loadArray(struct ast_node* var, struct ast_node* file) 
+{
 	struct ast_node* node = ast_new_node(N_LOAD_ARRAY);
 
 	ast_add_child(node, var);
 	ast_add_child(node, file);
 
 	return node;
+}
 
+struct ast_node* n_foreach(struct ast_node* var, struct ast_node* array, struct ast_node* then) 
+{
+	struct ast_node* node = ast_new_node(N_FOREACH);
+
+	ast_add_child(node, var);
+	ast_add_child(node, array);
+	ast_add_child(node, then);
+
+	return node;
 }

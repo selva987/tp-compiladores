@@ -31,4 +31,8 @@ struct ast_node* n_input(struct ast_node* var);
 
 struct ast_node* n_loadArray(struct ast_node* var, struct ast_node* file);
 
+#define N_FOREACH	9
+
+struct ast_node* n_foreach(struct ast_node* var, struct ast_node* array, struct ast_node* then);
+
 #endif /* FN_H */

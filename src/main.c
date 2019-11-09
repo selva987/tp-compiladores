@@ -43,8 +43,10 @@ void print_blocks(struct ast_node* node)
     while (NULL != (n = ast_get_nth_child(node, i++))) {
         print_node(n);
         if(n->type != N_WHILE
-            && node->type != N_IF
-            && node->type != N_FOR) {
+            && n->type != N_IF
+            && n->type != N_FOREACH
+            && n->type != N_LOAD_ARRAY
+            && n->type != N_FOR) {
             printf(";");
         }
         printf("\n");
@@ -86,7 +88,7 @@ void print_if(struct ast_node* node)
         printf("} else {\n");
         print_node(n);
     }
-    printf("}\n");
+    printf("}");
 }
 
 void print_while(struct ast_node* node)
@@ -102,7 +104,7 @@ void print_while(struct ast_node* node)
     // then
     n = ast_get_nth_child(node, 1);
     print_node(n);
-    printf("}\n");
+    printf("}");
 }
 
 void print_for(struct ast_node* node) 
@@ -144,6 +146,30 @@ void print_for(struct ast_node* node)
     printf("}\n");
 }
 
+void print_foreach(struct ast_node* node) 
+{
+    struct ast_node* n;
+    printf("foreach(");
+
+    //iterable
+    n = ast_get_nth_child(node, 1);
+    print_node(n);
+
+    printf(" as ");
+
+    //iterador
+    n = ast_get_nth_child(node, 0);
+    print_node(n);
+
+    printf("){\n");
+
+    //then
+    n = ast_get_nth_child(node, 2);
+    print_node(n);
+
+    printf("}");
+}
+
 void print_echo(struct ast_node* node) 
 {
     struct ast_node* n;
@@ -171,12 +197,12 @@ void print_load_array(struct ast_node* node)
     printf("if($___nuestroComp_handle = fopen(");
     n = ast_get_nth_child(node, 1);
     print_node(n);
-    printf(",'r'))");
-    printf("while(");
+    printf(",'r')){\n");
+    printf("while($___nuestroComp_str = fgets($___nuestroComp_handle)){\n");
     n = ast_get_nth_child(node, 0);
     print_node(n);
-    printf("[] = fgets($___nuestroComp_handle));");
-    printf("fclose($___nuestroComp_handle);");
+    printf("[] = $___nuestroComp_str;\n");
+    printf("}\nfclose($___nuestroComp_handle);\n}");
     
 }
 
@@ -301,6 +327,10 @@ void print_node(struct ast_node* node)
             break;
         case N_FOR:
             print_for(node);
+            break;
+        case N_FOREACH:
+            print_foreach(node);
+            break;
         case N_ECHO:
             print_echo(node);
             break;
@@ -355,7 +385,7 @@ int main(int argc, char **argv)
         return 1;
     }
 
-    printf("<?php\n");
+    printf("<?php\nini_set('error_reporting', E_ALL & ~E_NOTICE);\n");
 
     //st_print_symbols(print_st);
     //printf("\n\n");

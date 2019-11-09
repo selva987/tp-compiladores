@@ -17,8 +17,8 @@
 }
 
 %token <id> T_ID
-%token T_IF T_WHILE T_LLA_I T_LLA_D T_PAR_I T_PAR_D T_BRA_I T_BRA_D T_ELSE T_TYPE_NUMBER T_TYPE_STRING T_COMMA T_OP_ASSIGN T_OP_ACUMULATE_PLUS T_OP_ACUMULATE_MINUS T_OP_EQUAL T_OP_DISTINCT T_OP_LESSER T_OP_GREATER T_OP_LESSER_EQ T_OP_GREATER_EQ T_OP_AND T_OP_OR T_AOP_PLUS T_AOP_MINUS T_AOP_MUL T_AOP_DIV T_AOP_POW T_NUMBER T_STRING T_INTEGER T_SEMICOLON T_FOR T_FROM T_TO T_ECHO T_INPUT T_LOAD_ARRAY
-%type <node> linea lineas sigma if cond then else /*decl type*/ while operation operand operator for echo input id loadArray
+%token T_IF T_WHILE T_LLA_I T_LLA_D T_PAR_I T_PAR_D T_BRA_I T_BRA_D T_ELSE T_TYPE_NUMBER T_TYPE_STRING T_COMMA T_OP_ASSIGN T_OP_ACUMULATE_PLUS T_OP_ACUMULATE_MINUS T_OP_EQUAL T_OP_DISTINCT T_OP_LESSER T_OP_GREATER T_OP_LESSER_EQ T_OP_GREATER_EQ T_OP_AND T_OP_OR T_AOP_PLUS T_AOP_MINUS T_AOP_MUL T_AOP_DIV T_AOP_POW T_NUMBER T_STRING T_INTEGER T_SEMICOLON T_FOR T_FROM T_TO T_ECHO T_INPUT T_LOAD_ARRAY T_FOREACH T_IN
+%type <node> linea lineas sigma if cond then else /*decl type*/ while operation operand operator for echo input id loadArray foreach
 
 
 
@@ -34,7 +34,9 @@ lineas: linea lineas                        { $$ = n_blocks($1, $2); }
 linea: if                                   { $$ = $1; }
      | while                                { $$ = $1; }
      | for                                  { $$ = $1; }
+     | foreach                              { $$ = $1; }
      | operation T_SEMICOLON                { $$ = $1; }
+     | loadArray T_SEMICOLON                { $$ = $1; }
      | loadArray                            { $$ = $1; }
      /*| decl                               { $$ = NULL; }*/
      ;
@@ -88,6 +90,8 @@ while: T_WHILE cond then                   { $$ = n_while($2, $3); }
     ;
 
 for: T_FOR T_PAR_I id T_FROM operand T_TO operand T_PAR_D then         { $$ =  n_for($3, $5, $7, $9); }
+
+foreach: T_FOREACH T_PAR_I T_ID T_IN id T_PAR_D then    { $$ = n_foreach(n_id($3,NULL), $5, $7); }
     ;
 
 echo: T_ECHO T_PAR_I operand T_PAR_D       { $$ = n_echo($3); }
@@ -99,6 +103,7 @@ input: T_INPUT T_PAR_I id T_PAR_D          { $$ = n_input($3); }
 id: T_ID T_BRA_I operand T_BRA_D           { $$ = n_id($1, $3); }
     | T_ID                                 { $$ = n_id($1, NULL); } 
     ;
+
 loadArray: T_LOAD_ARRAY T_PAR_I id T_COMMA operand T_PAR_D    { $$ = n_loadArray($3, $5); }
     ;
 
