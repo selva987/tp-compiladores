@@ -9,5 +9,6 @@
 
 
 extern FILE *yyin;
+extern FILE *yyout;
 
 #endif /* MAIN_H */

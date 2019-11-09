@@ -18,7 +18,7 @@ void print_node(struct ast_node* node);
  */
 int lexer_error(int line_number, char *lexem)
 {
-    printf("\nError léxico en la línea %d: '%s'\n", line_number, lexem);
+    fprintf(yyout,"\nError léxico en la línea %d: '%s'\n", line_number, lexem);
     return -1;
 }
 
@@ -31,7 +31,7 @@ int lexer_error(int line_number, char *lexem)
  */
 int syntax_error(int line_number, char *s)
 {
-    printf("\nError sintáctico en la línea %d (%s).\n", line_number, s);
+    fprintf(yyout,"\nError sintáctico en la línea %d (%s).\n", line_number, s);
     return -2;
 }
 
@@ -47,9 +47,9 @@ void print_blocks(struct ast_node* node)
             && n->type != N_FOREACH
             && n->type != N_LOAD_ARRAY
             && n->type != N_FOR) {
-            printf(";");
+            fprintf(yyout,";");
         }
-        printf("\n");
+        fprintf(yyout,"\n");
     }
 }
 
@@ -57,14 +57,14 @@ void print_id(struct ast_node* node)
 {
     struct ast_node* n;
 
-    printf("$%s", node->data.id.id);
+    fprintf(yyout,"$%s", node->data.id.id);
     
     //busco si tengo posicion de array, si la tengo imprimo corchetes
     n = ast_get_nth_child(node, 0);
     if(n != NULL) {
-        printf("[");
+        fprintf(yyout,"[");
         print_node(n);
-        printf("]");
+        fprintf(yyout,"]");
     }
 
 }
@@ -73,11 +73,11 @@ void print_if(struct ast_node* node)
 {
     struct ast_node* n;
 
-    printf("if(");
+    fprintf(yyout,"if(");
     // condicion
     n = ast_get_nth_child(node, 0);
     print_node(n);
-    printf(") {\n");
+    fprintf(yyout,") {\n");
 
     // then
     n = ast_get_nth_child(node, 1);
@@ -85,89 +85,89 @@ void print_if(struct ast_node* node)
     // else?
     n = ast_get_nth_child(node, 2);
     if (n != NULL) {
-        printf("} else {\n");
+        fprintf(yyout,"} else {\n");
         print_node(n);
     }
-    printf("}");
+    fprintf(yyout,"}");
 }
 
 void print_while(struct ast_node* node)
 {
     struct ast_node* n;
 
-    printf("while(");
+    fprintf(yyout,"while(");
     // condicion
     n = ast_get_nth_child(node, 0);
     print_node(n);
-    printf(") {\n");
+    fprintf(yyout,") {\n");
 
     // then
     n = ast_get_nth_child(node, 1);
     print_node(n);
-    printf("}");
+    fprintf(yyout,"}");
 }
 
 void print_for(struct ast_node* node) 
 {
     struct ast_node* n, *var;
 
-    printf("for(");
+    fprintf(yyout,"for(");
 
     //variable
     var =  ast_get_nth_child(node, 0);
     print_node(var);
 
-    printf("=");
+    fprintf(yyout,"=");
 
     //condicion inicio
     n =  ast_get_nth_child(node, 1);
     print_node(n);
 
-    printf(";");
+    fprintf(yyout,";");
 
     //condicion fin
     print_node(var);
-    printf("<=");
+    fprintf(yyout,"<=");
     n =  ast_get_nth_child(node, 2);
     print_node(n);
 
-    printf(";");
+    fprintf(yyout,";");
 
     //incremento (por ahora solo suma de 1 en 1)
     print_node(var);
-    printf("++");
+    fprintf(yyout,"++");
 
-    printf(") {\n");
+    fprintf(yyout,") {\n");
 
     //then
     n =  ast_get_nth_child(node, 3);
     print_node(n);
 
-    printf("}\n");
+    fprintf(yyout,"}\n");
 }
 
 void print_foreach(struct ast_node* node) 
 {
     struct ast_node* n;
-    printf("foreach(");
+    fprintf(yyout,"foreach(");
 
     //iterable
     n = ast_get_nth_child(node, 1);
     print_node(n);
 
-    printf(" as ");
+    fprintf(yyout," as ");
 
     //iterador
     n = ast_get_nth_child(node, 0);
     print_node(n);
 
-    printf("){\n");
+    fprintf(yyout,"){\n");
 
     //then
     n = ast_get_nth_child(node, 2);
     print_node(n);
 
-    printf("}");
+    fprintf(yyout,"}");
 }
 
 void print_echo(struct ast_node* node) 
@@ -175,7 +175,7 @@ void print_echo(struct ast_node* node)
     struct ast_node* n;
     n = ast_get_nth_child(node, 0);
 
-    printf("echo ");
+    fprintf(yyout,"echo ");
     print_node(n);
 }
 
@@ -186,23 +186,30 @@ void print_input(struct ast_node* node)
 
     print_node(n);
 
-    printf(" = fgets(STDIN)");
+    fprintf(yyout," = trim(fgets(STDIN))");
 }
 
 void print_load_array(struct ast_node* node) 
 {
-    struct ast_node* n;
+    struct ast_node* var, *file;
+
+    var = ast_get_nth_child(node,0);
+    file = ast_get_nth_child(node,1);
     
 
-    printf("if($___nuestroComp_handle = fopen(");
-    n = ast_get_nth_child(node, 1);
-    print_node(n);
-    printf(",'r')){\n");
-    printf("while($___nuestroComp_str = fgets($___nuestroComp_handle)){\n");
-    n = ast_get_nth_child(node, 0);
-    print_node(n);
-    printf("[] = $___nuestroComp_str;\n");
-    printf("}\nfclose($___nuestroComp_handle);\n}");
+    fprintf(yyout,"if(is_readable(");
+    print_node(file);
+    fprintf(yyout,")){\n");
+
+    fprintf(yyout,"if($___nuestroComp_handle = fopen(");
+    print_node(file);
+    fprintf(yyout,",'r')){\n");
+
+    fprintf(yyout,"while($___nuestroComp_str = fgets($___nuestroComp_handle)){\n");
+    print_node(var);
+    fprintf(yyout,"[] = $___nuestroComp_str;\n");
+
+    fprintf(yyout,"}\nfclose($___nuestroComp_handle);\n}\n}");
     
 }
 
@@ -221,52 +228,52 @@ void print_operand(struct ast_node* node)
 {
     switch(node->data.operand) {
         case T_OP_EQUAL:
-            printf("==");
+            fprintf(yyout,"==");
             break;
         case T_OP_DISTINCT:
-            printf("!=");
+            fprintf(yyout,"!=");
             break;
         case T_OP_LESSER:
-            printf("<");
+            fprintf(yyout,"<");
             break;
         case T_OP_GREATER:
-            printf(">");
+            fprintf(yyout,">");
             break;
         case T_OP_LESSER_EQ:
-            printf("<=");
+            fprintf(yyout,"<=");
             break;
         case T_OP_GREATER_EQ:
-            printf(">=");
+            fprintf(yyout,">=");
             break;
         case T_OP_AND:
-            printf("&&");
+            fprintf(yyout,"&&");
             break;
         case T_OP_OR:
-            printf("||");
+            fprintf(yyout,"||");
             break;
         case T_OP_ASSIGN:
-            printf("=");
+            fprintf(yyout,"=");
             break;
         case T_OP_ACUMULATE_PLUS:
-            printf("+=");
+            fprintf(yyout,"+=");
             break;
         case T_OP_ACUMULATE_MINUS:
-            printf("-=");
+            fprintf(yyout,"-=");
             break;
         case T_AOP_PLUS:
-            printf("+");
+            fprintf(yyout,"+");
             break;
         case T_AOP_MINUS:
-            printf("-");
+            fprintf(yyout,"-");
             break;
         case T_AOP_MUL:
-            printf("*");
+            fprintf(yyout,"*");
             break;
         case T_AOP_DIV:
-            printf("/");
+            fprintf(yyout,"/");
             break;
         case T_AOP_POW:
-            printf("^");
+            fprintf(yyout,"^");
             break;
     }
 }
@@ -281,13 +288,13 @@ void print_operation(struct ast_node* node)
 
     n = ast_get_nth_child(node, 1);
     if(n != NULL) {
-        printf(" ");
+        fprintf(yyout," ");
         print_node(n);
     }
 
     n = ast_get_nth_child(node, 2);
     if(n != NULL) {
-        printf(" ");
+        fprintf(yyout," ");
         print_node(n);
     }
     
@@ -295,17 +302,17 @@ void print_operation(struct ast_node* node)
 
 void print_const_number(struct ast_node* node)
 {
-    printf("%f", node->data.number);
+    fprintf(yyout,"%f", node->data.number);
 }
 
 void print_const_integer(struct ast_node* node)
 {
-    printf("%i", node->data.integer);
+    fprintf(yyout,"%i", node->data.integer);
 }
 
 void print_const_string(struct ast_node* node)
 {
-    printf("%s", node->data.string);
+    fprintf(yyout,"%s", node->data.string);
 }
 
 
@@ -359,7 +366,7 @@ void print_node(struct ast_node* node)
             print_const_string(node);
             break;
         default:
-            printf("nodo(%d) ??\n", node->type);
+            fprintf(yyout,"nodo(%d) ??\n", node->type);
     }
 }
 
@@ -371,7 +378,7 @@ void print_ast(struct ast_node* ast)
 void print_st(int id, struct usr_st_data* data)
 {
     // if (data->type == 0) {}
-    printf("double %s = 0;\n", data->name);
+    fprintf(yyout,"double %s = 0;\n", data->name);
 }
 
 
@@ -380,19 +387,22 @@ int main(int argc, char **argv)
     if (argc > 1) {
         yyin = fopen(argv[1], "r");
     }
+    if(argc > 2) {
+        yyout = fopen(argv[2], "w");
+    }
 
     if (yyparse()) {
         return 1;
     }
 
-    printf("<?php\nini_set('error_reporting', E_ALL & ~E_NOTICE);\n");
+    fprintf(yyout,"<?php\nini_set('error_reporting', E_ALL & ~E_NOTICE);\n");
 
     //st_print_symbols(print_st);
-    //printf("\n\n");
+    //fprintf(yyout,"\n\n");
 
     print_ast(ast);
 
-    printf("exit;\n ?>");
+    fprintf(yyout,"exit;\n ?>");
 
     return 0;
 }

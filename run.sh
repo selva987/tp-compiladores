@@ -62,7 +62,8 @@ fi
 opcion=100
 
 while [[ ! "$opcion" == "0" ]]; do
-echo "$barraSeparadora
+echo "
+$barraSeparadora
 Menu:
 1. Compilar y ejecutar ejemplo 1 (detalles)
 2. Compilar y ejecutar ejemplo 1 (detalles)
@@ -74,10 +75,10 @@ read -p "Ingrese su eleccion (0-4):" opcion
 
 case "$opcion" in
 	1|2|3)
-		bin/comp -i progs/pro0"$opcion".pse -o compilado/prog0"$opcion".php && php compilado/prog0"$opcion".php
+		bin/comp progs/prog"$opcion".pse compilado/prog"$opcion".php && php compilado/prog"$opcion".php
 	;;
 	4)
-		echo 'Ejecute el binario comp localizado en la carpeta bin, el parametro -i es el fichero de entrada y el paraametro -o es el fichero de salida'
+		echo 'Ejecute el binario comp localizado en la carpeta bin, el parametro es el fichero de entrada y segundo el parametro es el fichero de salida. Si no se especifica el segundo parametro, se utiliza la salida estandar.'
 		read -p 'Presione cualquier tecla para continuar...' ans
 	;;
 	0)
