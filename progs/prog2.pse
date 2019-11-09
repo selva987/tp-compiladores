@@ -1,6 +1,9 @@
 b <= 1;
 c <= "a ver si detecta esto como cadena o condicion";
+d <= " jajaj";
 a <= 35;
+
+c <= (c >< d);
 
 b <+ 2;
 

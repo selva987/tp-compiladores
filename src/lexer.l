@@ -46,6 +46,7 @@ en					{ return T_IN; }
 \<=					{ return T_OP_ASSIGN; }
 \<\+				{ return T_OP_ACUMULATE_PLUS; }
 \<\-				{ return T_OP_ACUMULATE_MINUS; }
+\>\<				{ return T_OP_CONCAT; }
 igual		        { return T_OP_EQUAL; }
 distinto	        { return T_OP_DISTINCT; }
 menor		        { return T_OP_LESSER; }

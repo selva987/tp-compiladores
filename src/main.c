@@ -260,6 +260,9 @@ void print_operand(struct ast_node* node)
         case T_OP_ACUMULATE_MINUS:
             fprintf(yyout,"-=");
             break;
+        case T_OP_CONCAT:
+            fprintf(yyout,".");
+            break;
         case T_AOP_PLUS:
             fprintf(yyout,"+");
             break;
