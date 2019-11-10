@@ -1,7 +1,7 @@
 b <= 1;
 c <= "a ver si detecta esto como cadena o condicion";
 d <= " jajaj";
-a <= 35;
+a <= -35;
 
 c <= (c >< d);
 
@@ -20,7 +20,7 @@ mientras(b menor a) {
 	b <= (b + 1);
 }
 
-para(i desde b hasta (a -1)) {
+para(i desde b hasta (a - 1)) {
 	b <= 2;
 }
 
@@ -40,4 +40,8 @@ cada(el en x) {
 mostrar("Promedio: ");
 mostrar((suma / i));
 
-terminar();
+
+funcion asd (a,b,c,d) {
+	mostrar(a);
+	retornar(b);
+}

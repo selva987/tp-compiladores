@@ -34,6 +34,18 @@ int syntax_error(int line_number, char *s)
     fprintf(yyout,"\nError sintáctico en la línea %d (%s).\n", line_number, s);
     return -2;
 }
+/**
+ * Manejador de errores semanticos
+ *
+ * @param  line_number
+ * @param  s
+ * @return
+ */
+int semantic_error(int line_number, char *s)
+{
+    fprintf(yyout,"\nError semántico en la línea %d (Ya existe una funcion %s).\n", line_number, s);
+    exit(1);
+}
 
 void print_blocks(struct ast_node* node)
 {
@@ -44,6 +56,7 @@ void print_blocks(struct ast_node* node)
         print_node(n);
         if(n->type != N_WHILE
             && n->type != N_IF
+            && n->type != N_FUNCTION
             && n->type != N_FOREACH
             && n->type != N_LOAD_ARRAY
             && n->type != N_FOR) {
@@ -323,7 +336,52 @@ void print_exit(struct ast_node* node)
     fprintf(yyout,"exit(%d)", node->data.integer);
 }
 
+void print_function(struct ast_node* node) 
+{
+    
+    struct ast_node* n;
 
+    fprintf(yyout, "function %s(", node->data.string);
+
+    //vars
+    n = ast_get_nth_child(node, 0);
+    if(n->type == N_VARS || n->type == N_ID) {
+        print_node(n);
+        n = ast_get_nth_child(node, 1);
+    }
+
+    fprintf(yyout, ") {\n");
+
+    //cuerpo
+    print_node(n);
+
+    fprintf(yyout, "}");
+
+}
+
+void print_vars(struct ast_node* node) 
+{
+    struct ast_node* n;
+    int i = 0;
+
+    while(NULL != (n = ast_get_nth_child(node, i))) {
+        if(i != 0) {
+            fprintf(yyout, ",");
+        }
+        print_node(n);
+        i++;
+    }
+
+}
+
+void print_return(struct ast_node* node) 
+{
+    struct ast_node* n = ast_get_nth_child(node, 0);
+
+    fprintf(yyout, "return ");
+    print_node(n);
+
+}
 
 void print_node(struct ast_node* node)
 {
@@ -375,6 +433,15 @@ void print_node(struct ast_node* node)
             break;
         case N_EXIT:
             print_exit(node);
+            break;
+        case N_FUNCTION:
+            print_function(node);
+            break;
+        case N_VARS:
+            print_vars(node);
+            break;
+        case N_RETURN:
+            print_return(node);
             break;
         default:
             fprintf(yyout,"nodo(%d) ??\n", node->type);

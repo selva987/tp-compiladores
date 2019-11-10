@@ -178,7 +178,7 @@ struct ast_node* n_id(char* id, struct ast_node* pos)
         ast_add_child(node, pos);
     }
 
-    st_define_or_ignore_symbol(id);
+    st_define_or_ignore_symbol(id, 0);
 
     return node;
 }

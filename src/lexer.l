@@ -17,11 +17,11 @@ cadena				{ return T_TYPE_STRING; }
 						yylval.string = strdup(yytext); 
 						return T_STRING; 
 					}
-[0-9]+				{ 
+\-?[0-9]+				{ 
 						yylval.integer = atoi(yytext); 
 						return T_INTEGER; 
 					}
-[0-9]*\.[0-9]+		{ 
+\-?[0-9]*\.[0-9]+		{ 
 						yylval.number = (double)*yytext; 
 						return T_NUMBER; 
 					}
@@ -37,6 +37,8 @@ cargardesdearchivo	{ return T_LOAD_ARRAY; }
 cada				{ return T_FOREACH; }
 en					{ return T_IN; }
 terminar			{ return T_EXIT; }
+funcion				{ return T_FUNCTION; }
+retornar			{ return T_RETURN; }
 \{                  { return T_LLA_I; }
 \}                  { return T_LLA_D; }
 \(                  { return T_PAR_I; }

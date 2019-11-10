@@ -39,4 +39,17 @@ struct ast_node* n_foreach(struct ast_node* var, struct ast_node* array, struct 
 
 struct ast_node* n_exit(int code);
 
+#define N_FUNCTION 11
+
+struct ast_node* n_function(char* name, struct ast_node* vars, struct ast_node* body);
+
+#define N_VARS 12
+
+struct ast_node* n_vars(struct ast_node* var1, struct ast_node* var2);
+
+#define N_RETURN 13
+
+struct ast_node* n_return(struct ast_node* arg);
+
+
 #endif /* FN_H */
