@@ -5,6 +5,14 @@ a <= -35;
 
 c <= (c >< d);
 
+funcion asd (a,b,c,d) {
+	mostrar(a);
+	retornar(b);
+}
+
+s <= asd(a,b);
+asd(b[2],a);
+
 
 b <+ 2;
 
@@ -41,7 +49,4 @@ mostrar("Promedio: ");
 mostrar((suma / i));
 
 
-funcion asd (a,b,c,d) {
-	mostrar(a);
-	retornar(b);
-}
+

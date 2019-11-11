@@ -51,5 +51,9 @@ struct ast_node* n_vars(struct ast_node* var1, struct ast_node* var2);
 
 struct ast_node* n_return(struct ast_node* arg);
 
+#define N_FUNCTION_CALL 14
+
+struct ast_node* n_function_call(char* name, struct ast_node* params);
+
 
 #endif /* FN_H */

@@ -121,3 +121,14 @@ struct ast_node* n_return(struct ast_node* arg) {
 
 	return node;
 }
+
+struct ast_node* n_function_call(char* name, struct ast_node* params) {
+	struct ast_node* node = ast_new_node(N_FUNCTION_CALL);
+	node->data.string = strdup(name);
+
+	if(params != NULL) {
+		ast_add_child(node, params);
+	}
+
+	return node;
+}

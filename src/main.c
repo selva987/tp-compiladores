@@ -383,6 +383,19 @@ void print_return(struct ast_node* node)
 
 }
 
+void print_function_call(struct ast_node* node) 
+{
+    struct ast_node* n = ast_get_nth_child(node, 0);
+
+    fprintf(yyout, "%s(", node->data.string);
+
+    if(n != NULL) {
+        print_node(n);
+    }
+
+    fprintf(yyout, ")");
+}
+
 void print_node(struct ast_node* node)
 {
     switch (node->type) {
@@ -442,6 +455,9 @@ void print_node(struct ast_node* node)
             break;
         case N_RETURN:
             print_return(node);
+            break;
+        case N_FUNCTION_CALL:
+            print_function_call(node);
             break;
         default:
             fprintf(yyout,"nodo(%d) ??\n", node->type);

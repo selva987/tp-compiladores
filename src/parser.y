@@ -12,6 +12,10 @@
     {
         semantic_error(st_line_number(), name);
     }
+    void unknown_function_error(char *name)
+    {
+        semantic_error(st_line_number(), name);
+    }
 %}
 
 //%define parse.error verbose
@@ -27,7 +31,7 @@
 %token <id> T_ID
 
 %token T_IF T_WHILE T_LLA_I T_LLA_D T_PAR_I T_PAR_D T_BRA_I T_BRA_D T_ELSE T_TYPE_NUMBER T_TYPE_STRING T_COMMA T_OP_ASSIGN T_OP_ACUMULATE_PLUS T_OP_ACUMULATE_MINUS T_OP_CONCAT T_OP_EQUAL T_OP_DISTINCT T_OP_LESSER T_OP_GREATER T_OP_LESSER_EQ T_OP_GREATER_EQ T_OP_AND T_OP_OR T_AOP_PLUS T_AOP_MINUS T_AOP_MUL T_AOP_DIV T_AOP_POW T_NUMBER T_STRING T_INTEGER T_SEMICOLON T_FOR T_FROM T_TO T_ECHO T_INPUT T_LOAD_ARRAY T_FOREACH T_IN T_EXIT T_FUNCTION T_RETURN
-%type <node> linea lineas sigma if cond then else /*decl type*/ while operation operand operator for echo input id loadArray foreach exit function_decl vars return
+%type <node> linea lineas sigma if cond then else /*decl type*/ while operation operand operator for echo input id loadArray foreach exit function_decl vars return function_call params
 
 %left T_OP_ASSIGN
 %left T_AOP_PLUS T_AOP_MINUS
@@ -51,6 +55,7 @@ linea: if                                   { $$ = $1; }
      | loadArray T_SEMICOLON                { $$ = $1; }
      | exit T_SEMICOLON                     { $$ = $1; }
      | function_decl                        { $$ = $1; }
+     | function_call T_SEMICOLON            { $$ = $1; }
      | return T_SEMICOLON                   { $$ = $1; }
      ;
 
@@ -72,6 +77,7 @@ operand: id                                 { $$ = $1; }
     | T_NUMBER                              { $$ = n_const_number(yylval.number); }
     | T_INTEGER                             { $$ = n_const_integer(yylval.integer); }
     | cond                                  { $$ = $1; }
+    | function_call                         { $$ = $1; }
     ;
 
 operator: T_OP_EQUAL                        { $$ = n_operand(T_OP_EQUAL); }
@@ -129,6 +135,16 @@ vars: T_ID T_COMMA vars                      { $$ = n_vars(n_id($1,NULL), $3); }
     | T_ID                                   { $$ = n_vars(n_id($1,NULL),NULL); }
     | /* lambda */                           { $$ = NULL; }   
     ;
+
+function_call: T_ID T_PAR_I params T_PAR_D  { if(st_get_symbol($1, 1) == NULL) unknown_function_error($1); $$ = n_function_call($1, $3); }
+    ;
+
+
+params: id T_COMMA vars                      { $$ = n_vars($1, $3); }
+    | id                                     { $$ = n_vars($1,NULL); }
+    | /* lambda */                           { $$ = NULL; }   
+    ;
+
 
 exit: T_EXIT T_PAR_I T_INTEGER T_PAR_D      { $$ = n_exit(yylval.integer); }
     ;
