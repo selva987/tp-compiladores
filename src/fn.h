@@ -55,5 +55,8 @@ struct ast_node* n_return(struct ast_node* arg);
 
 struct ast_node* n_function_call(char* name, struct ast_node* params);
 
+#define N_COMMENT	15
+
+struct ast_node* n_comment(char* str, int block);
 
 #endif /* FN_H */

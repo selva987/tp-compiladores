@@ -6,6 +6,31 @@
     int st_newline();
     int lexer_error(int line_number, char *lexem);
     extern int line_number;
+
+    /**
+	 * Copia una parte de una cadena
+	 *
+	 * Creditos a @margarito04 (http://www.forosdelweb.com/f96/substr-para-c-543410/)
+	 *
+	 * @param  cadena
+	 * @param  comienzo
+	 * @param  longitud
+	 * @return char*
+
+	 */
+/*
+	char* substr(char* cadena, int comienzo, int longitud)
+	{
+	    if (longitud == 0) 
+	        longitud = strlen(cadena)-comienzo;
+	    
+	    char *nuevo = (char*)malloc(sizeof(char) * (longitud+1));
+	    nuevo[longitud] = '\0';
+	    strncpy(nuevo, cadena + comienzo, longitud);
+	    
+	    return nuevo;
+	}
+	*/
 %}
 
 %option noyywrap
@@ -13,6 +38,14 @@
 %%
 entero              { return T_TYPE_NUMBER; }
 cadena				{ return T_TYPE_STRING; }
+\!\!.*\n			{ 
+						yylval.string = strdup(yytext);
+						return T_COMMENT_LINE; 
+					}
+\!\+(.|\n)*\+\!			{
+						yylval.string = strdup(yytext);
+						return T_COMMENT_BLOCK; 
+					}
 (\'.*\'|\".*\")     { 
 						yylval.string = strdup(yytext); 
 						return T_STRING; 

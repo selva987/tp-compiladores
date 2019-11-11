@@ -13,12 +13,16 @@ funcion asd (a,b,c,d) {
 s <= asd(a,b);
 asd(b[2],a);
 
+!!comentario de una linea
 
 b <+ 2;
 
 b <- 1;
 
 ar[(b+1)] <= 50;
+
+!+comentario multi linea 
+segunda linea+!
 
 si((a igual 1) o (a igual 2)) {
 	b <= 2;

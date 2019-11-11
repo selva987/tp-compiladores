@@ -132,3 +132,24 @@ struct ast_node* n_function_call(char* name, struct ast_node* params) {
 
 	return node;
 }
+
+struct ast_node* n_comment(char* str, int block)
+{
+
+    struct ast_node* node;
+
+    node = ast_new_node(N_COMMENT);
+    node->data.string = strdup(str);
+
+    //si block es 0 entonces es un comentario de linea, si es 1 es comentario de bloque
+  //   if(block == 0) {
+  //   	printf("0");
+  //   	node->data.integer = 0;
+  //   } else {
+		// printf("1");
+  //   	node->data.integer = 1;
+  //   }
+    
+
+    return node;
+}

@@ -58,6 +58,7 @@ void print_blocks(struct ast_node* node)
             && n->type != N_IF
             && n->type != N_FUNCTION
             && n->type != N_FOREACH
+            && n->type != N_COMMENT
             && n->type != N_LOAD_ARRAY
             && n->type != N_FOR) {
             fprintf(yyout,";");
@@ -359,6 +360,28 @@ void print_function(struct ast_node* node)
 
 }
 
+void print_comment(struct ast_node* node)
+{
+    int len;
+    
+    if(node->data.string[1] == '+') {
+        //es un comentario de bloque
+        node->data.string[0] = '/';
+        node->data.string[1] = '*';
+        len = strlen(node->data.string);
+        node->data.string[len-2] = '*';
+        node->data.string[len-1] = '/';
+    } else {
+        //comentario de linea
+        node->data.string[0] = '/';
+        node->data.string[1] = '/';
+    }
+
+    fprintf(yyout, "%s", node->data.string);
+
+}
+
+
 void print_vars(struct ast_node* node) 
 {
     struct ast_node* n;
@@ -449,6 +472,9 @@ void print_node(struct ast_node* node)
             break;
         case N_FUNCTION:
             print_function(node);
+            break;
+        case N_COMMENT:
+            print_comment(node);
             break;
         case N_VARS:
             print_vars(node);
