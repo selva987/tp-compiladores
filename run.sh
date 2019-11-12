@@ -23,6 +23,10 @@ if [[  "$(checkDependencia  'flex')" == 1 ]]; then
 	paquetesAInstalar+=("flex")
 fi
 
+if [[  "$(checkDependencia  'bison')" == 1 ]]; then
+	paquetesAInstalar+=("bison")
+fi
+
 if [[  "$(checkDependencia  'gcc')" == 1 ]]; then
 	paquetesAInstalar+=("gcc")
 fi
@@ -49,6 +53,7 @@ if [[ ${#paquetesAInstalar[@]} > 0 ]]; then
 	fi
 else
 	echo "Todas las dependencias se encuentran instaladas"
+	read -p 'Presione cualquier tecla para continuar...' ans
 fi
 
 if ! test -f "bin/comp"; then
@@ -57,6 +62,7 @@ if ! test -f "bin/comp"; then
 Se ejecutara el comando "make"'
     make
     echo 'Compilado exitosamente!'
+    read -p 'Presione cualquier tecla para continuar...' ans
 fi
 
 opcion=100
@@ -71,7 +77,7 @@ Menu:
 4. Instrucciones para compilar archivos propios
 0. Salir"
 
-read -p "Ingrese su eleccion (0-4):" opcion
+read -p "Ingrese su eleccion (0-4): " opcion
 
 case "$opcion" in
 	1|2|3)
