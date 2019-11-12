@@ -1,56 +1,20 @@
-b <= 1;
-c <= "a ver si detecta esto como cadena o condicion";
-d <= " jajaj";
-a <= -35;
-
-c <= (c >< d);
-
-funcion asd (a,b,c,d) {
-	mostrar(a);
-	retornar(b);
-}
-
-s <= asd(a,b);
-asd(b[2],a);
-
-!!comentario de una linea
-
-b <+ 2;
-
-b <- 1;
-
-ar[(b+1)] <= 50;
-
-!+comentario multi linea 
-segunda linea+!
-
-si((a igual 1) o (a igual 2)) {
-	b <= 2;
-}
-
-mientras(b menor a) {
-	b <= (b + 1);
-}
-
-para(i desde b hasta (a - 1)) {
-	b <= 2;
-}
-
-mostrar(b);
-mostrar('hola');
-pedir(a);
-
-cargardesdearchivo(x,a);
-
-suma <= 0;
 i <= 0;
+nota <= 15;
 
-cada(el en x) {
-	suma <+ el;
-	i <+ 1;
+mientras(nota mayor 0) {
+	mostrar("Ingrese una nota del 1 al 10, para terminar ingrese 0\n");
+	pedir(nota);
+	si((nota mayor 0) y (nota menoroigual 10)) {
+		notas[i] <= nota;
+		i <+ 1;
+	}sino{
+		mostrar("NUMERO NO VALIDO!\n");
+	}
 }
-mostrar("Promedio: ");
-mostrar((suma / i));
+acu <= 0;
+cada(nota en notas)	{
+	acu <+ nota;
+}
 
-
+mostrar(("El promedio es " >< (acu / i)));
 

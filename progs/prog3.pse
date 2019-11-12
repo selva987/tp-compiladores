@@ -1,0 +1,17 @@
+funcion promedio(notas) {
+	acu <= 0;
+	i <= 0;
+	cada(nota en notas)	{
+		acu <+ nota;
+		i <+ 1;
+	}
+
+	mostrar(("El promedio es " >< (acu / i)));
+}
+
+mostrar("Ingrese la ruta al archivo de notas (compilado/ejemplo.txt)\n");
+pedir(ruta);
+
+cargardesdearchivo(notas,ruta);
+
+promedio(notas);

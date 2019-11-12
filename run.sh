@@ -12,9 +12,9 @@ barraSeparadora='***************************************************************
 
 echo "Bienvenido a nuestro TP de compiladores
 Integrantes:
-* Diaz Pablo
-* Enriquez Facundo
-* Selva Ricardo
+* Diaz Pablo			<lord.pablo125@gmail.com>
+* Enriquez Facundo		<facundo.tomas.enriquez@gmail.com>
+* Selva Ricardo			<ricardosel@gmail.com>
 $barraSeparadora
 A continuacion se controlaran las dependencias"
 
@@ -42,7 +42,7 @@ fi
 if [[ ${#paquetesAInstalar[@]} > 0 ]]; then
 	echo 'Los siguientes paquetes deben ser instalados: '
 	echo  ${paquetesAInstalar[@]}
-	echo 'Presione Y para instalar automaticamente (se pedira acceso superusuario), de lo contrario, presione N para salir e instaalar manualmente'
+	echo 'Presione Y para instalar automaticamente (se requiere acceso superusuario), de lo contrario, presione N para salir e instaalar manualmente'
 	echo -n '(Y/N)'
 	read ans
 	if [[ ${ans,,} == 'y' ]]; then
@@ -58,7 +58,7 @@ fi
 
 if ! test -f "bin/comp"; then
 	echo "$barraSeparadora"
-    echo 'El conpilador debe compilarse (valga la redundancia)
+    echo 'El compilador debe compilarse (valga la redundancia)
 Se ejecutara el comando "make"'
     make
     echo 'Compilado exitosamente!'
@@ -72,8 +72,8 @@ echo "
 $barraSeparadora
 Menu:
 1. Compilar y ejecutar ejemplo 1 (detalles)
-2. Compilar y ejecutar ejemplo 1 (detalles)
-3. Compilar y ejecutar ejemplo 1 (detalles)
+2. Compilar y ejecutar ejemplo 2 (Calculo de promedios)
+3. Compilar y ejecutar ejemplo 3 (Calculo de promedios desde archivo)
 4. Instrucciones para compilar archivos propios
 0. Salir"
 
@@ -84,7 +84,7 @@ case "$opcion" in
 		bin/comp progs/prog"$opcion".pse compilado/prog"$opcion".php && php compilado/prog"$opcion".php
 	;;
 	4)
-		echo 'Ejecute el binario comp localizado en la carpeta bin, el parametro es el fichero de entrada y segundo el parametro es el fichero de salida. Si no se especifica el segundo parametro, se utiliza la salida estandar.'
+		echo 'Ejecute el binario comp localizado en la carpeta bin, el parametro es el fichero de entrada y el segundo parametro es el fichero de salida. Si no se especifica el segundo parametro, se utiliza la salida estandar.'
 		read -p 'Presione cualquier tecla para continuar...' ans
 	;;
 	0)
