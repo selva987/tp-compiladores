@@ -36,8 +36,6 @@
 %option noyywrap
 
 %%
-entero              { return T_TYPE_NUMBER; }
-cadena				{ return T_TYPE_STRING; }
 \!\!.*\n			{ 
 						yylval.string = strdup(yytext);
 						return T_COMMENT_LINE; 

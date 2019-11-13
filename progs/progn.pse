@@ -40,12 +40,12 @@ mostrar(b);
 mostrar('hola');
 pedir(a);
 
-cargardesdearchivo(x,a);
+cargardesdearchivo(array,ruta);
 
 suma <= 0;
 i <= 0;
 
-cada(el en x) {
+cada(elemento en array) {
 	suma <+ el;
 	i <+ 1;
 }

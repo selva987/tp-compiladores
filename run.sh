@@ -71,7 +71,7 @@ while [[ ! "$opcion" == "0" ]]; do
 echo "
 $barraSeparadora
 Menu:
-1. Compilar y ejecutar ejemplo 1 (detalles)
+1. Compilar y ejecutar ejemplo 1 (Factorial)
 2. Compilar y ejecutar ejemplo 2 (Calculo de promedios)
 3. Compilar y ejecutar ejemplo 3 (Calculo de promedios desde archivo)
 4. Instrucciones para compilar archivos propios
