@@ -9,11 +9,14 @@
  * Como mínimo debe tener un campo name (que no puede ser renombrado) en el que se
  * almacena el nombre del símbolo. Luego, los demás campos deben definirse conforme
  * a la necesidad de cada desarrollo.
+ * function define si es o no una funcion
  */
 struct usr_st_data {
     char* name;
     int type;
+    int function;
 };
+
 
 /**
  * Estructura de los nodos del Árbol de Análisis Sintáctico (AST)
@@ -31,6 +34,7 @@ union usr_ast_data {
     double number;
     int boolean;
     int operand;
+    int integer;
 };
 
 struct ast_node *ast;

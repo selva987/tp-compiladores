@@ -1,0 +1,15 @@
+mostrar("Ingrese un numero para calcular su factorial\n");
+pedir(num);
+si(num menoroigual 0) {
+	mostrar("El factorial de un numero negativo no existe!");
+	terminar(0);
+}
+
+factorial <= num;
+num <- 1;
+mientras(num mayor 0) {
+	factorial <= (factorial * num);
+	num <- 1;
+}
+
+mostrar(("El factorial es igual a " >< factorial));

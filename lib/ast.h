@@ -59,7 +59,7 @@ struct ast_node* n_blocks(struct ast_node* block1, struct ast_node* block2);
 /**
  * Crea un nodo para un identificador
  */
-struct ast_node* n_id(char* id, int type);
+struct ast_node* n_id(char* id, struct ast_node* pos);
 
 /**
  * Nodo de constante de cadena de caracteres

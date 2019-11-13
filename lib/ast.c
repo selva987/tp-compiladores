@@ -167,15 +167,18 @@ struct ast_node* n_blocks(struct ast_node* block1, struct ast_node* block2)
     return node;
 }
 
-struct ast_node* n_id(char* id, int type)
+struct ast_node* n_id(char* id, struct ast_node* pos)
 {
     struct ast_node* node;
     
     node = ast_new_node(N_ID);
     node->data.id.id = strdup(id);
-    node->data.id.type = type;
 
-    st_define_or_ignore_symbol(id);
+    if(pos != NULL) {
+        ast_add_child(node, pos);
+    }
+
+    st_define_or_ignore_symbol(id, 0);
 
     return node;
 }

@@ -1,0 +1,20 @@
+i <= 0;
+nota <= 15;
+
+mientras(nota mayor 0) {
+	mostrar("Ingrese una nota del 1 al 10, para terminar ingrese 0\n");
+	pedir(nota);
+	si((nota mayor 0) y (nota menoroigual 10)) {
+		notas[i] <= nota;
+		i <+ 1;
+	}sino{
+		mostrar("NUMERO NO VALIDO!\n");
+	}
+}
+acu <= 0;
+cada(nota en notas)	{
+	acu <+ nota;
+}
+
+mostrar(("El promedio es " >< (acu / i)));
+

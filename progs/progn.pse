@@ -1,0 +1,56 @@
+b <= 1;
+c <= "a ver si detecta esto como cadena o condicion";
+d <= " jajaj";
+a <= -35;
+
+c <= (c >< d);
+
+funcion asd (a,b,c,d) {
+	mostrar(a);
+	retornar(b);
+}
+
+s <= asd(a,b);
+asd(b[2],a);
+
+!!comentario de una linea
+
+b <+ 2;
+
+b <- 1;
+
+ar[(b+1)] <= 50;
+
+!+comentario multi linea 
+segunda linea+!
+
+si((a igual 1) o (a igual 2)) {
+	b <= 2;
+}
+
+mientras(b menor a) {
+	b <= (b + 1);
+}
+
+para(i desde b hasta (a - 1)) {
+	b <= 2;
+}
+
+mostrar(b);
+mostrar('hola');
+pedir(a);
+
+cargardesdearchivo(array,ruta);
+
+suma <= 0;
+i <= 0;
+
+cada(elemento en array) {
+	suma <+ el;
+	i <+ 1;
+}
+mostrar("Promedio: ");
+mostrar((suma / i));
+
+
+
